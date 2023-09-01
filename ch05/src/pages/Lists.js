@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar/NavBar';
@@ -31,7 +31,11 @@ const Title = styled.h3`
 const Lists = () => {
   let navigate = useNavigate();
 
-  const { loading, error, lists } = useContext(ListsContext);
+  const { loading, error, lists, fetchLists, fetchList } = useContext(ListsContext);
+
+  useEffect(() => {
+    !lists.length && fetchLists();
+  }, [fetchLists, lists]);
 
   return (
     <>

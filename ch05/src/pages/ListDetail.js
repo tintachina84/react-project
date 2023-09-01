@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar/NavBar';
 import ListItem from '../components/ListItem/ListItem';
 import ItemsContext from '../context/ItemsContext';
+import ListsContext from '../context/ListsContext';
 
 const ListItemWrapper = styled.div`
   display: flex;
@@ -21,10 +22,15 @@ function ListDetail() {
   // );
   // const { loading, error, items: data } = useContext(ItemsContext);
   const { loading, error, items, fetchItems } = useContext(ItemsContext);
+  const { list, fetchList } = useContext(ListsContext);
 
   useEffect(() => {
     listId && !items.length && fetchItems(listId);
   }, [fetchItems, items, listId]);
+
+  useEffect(() => {
+    listId && !list.id && fetchList(listId);
+  }, []);
 
   return (
     <>
